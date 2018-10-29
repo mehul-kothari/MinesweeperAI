@@ -219,7 +219,9 @@ public class World {
 				this.printActionInfo();
 			}
 			// Ask agent for its action
+			//printWorld();
 			actionObj = this.agent.getAction(this.perceptNumber);
+			printWorld();
 			System.out.println(actionObj);
 			// Check the (x,y) coordinates are valid
 			if (!this.isInBounds(actionObj.x, actionObj.y)) {
@@ -245,19 +247,21 @@ public class World {
 		}
 		if (this.gameState == GAMESTATE.WON) {
 			if (this.difficulty == DIFFICULTY.NONE) {
+				System.out.println("no difficulty set");
 				// Return 1 if user completes a board size that does not correspond
 				// to any of the standard board sizes
 				this.score = 1;
 			} else {
+				System.out.println("difficulty set");
 				this.score += this.difficulty.ordinal();
 			}
 		}
 
 		this.uncoverAll();
-		// System.out.println("Final Action: " + actionObj);
-		// System.out.println("Score: " + this.score);
-		// System.out.println("difficulty: " + this.difficulty);
-		// System.out.println("Moves Taken: " + this.moves);
+		System.out.println("Final Action: " + actionObj);
+		System.out.println("Score: " + this.score);
+		 System.out.println("difficulty: " + this.difficulty);
+		System.out.println("Moves Taken: " + this.moves);
 		return new Results(this.score, this.difficulty.ordinal(), this.moves);
 	}
 	
@@ -292,6 +296,7 @@ public class World {
 					// check if all tiles uncovered
 					if (this.coveredTiles - this.totalMines == 0) {
 						this.gameState = GAMESTATE.WON;
+						System.out.println("game won");
 						return true;
 					}	
 				}
